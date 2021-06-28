@@ -24,7 +24,7 @@
       "react-app",
       "react-app/jest",
       "airbnb",
-      "plugin:prettier/recommended"
+      "prettier"
     ],
     "plugins": [
       "prettier"
@@ -40,7 +40,13 @@
           ]
         }
       ],
-      "import/newline-after-import": ["off"]
+      "import/newline-after-import": ["off"],
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ]
   }},
   "browserslist": {
     "production": [
