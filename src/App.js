@@ -1,17 +1,29 @@
+import { Switch } from "@headlessui/react";
 import React, { useState } from "react";
-// import { LargeCard, Card, WideCard, TallCard } from "./components/Card";
 import Card from "./components/Card";
 const App = () => {
-  const [drakMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   return (
-    <div className={`min-h-screen ${drakMode ? "dark" : ""}`}>
+    <div className={`min-h-screen ${darkMode ? "dark" : ""}`}>
       <div className="flex flex-col h-full justify-between bg-yellow-50 dark:bg-gray-200">
         <header>
           <div className="px-4 py-2 h-12 bg-yellow-400 dark:bg-gray-400 flex justify-between">
             <h1 className=" font-semibold">The news App</h1>
-            <button type="button" onClick={() => setDarkMode(!drakMode)}>
-              toggle
-            </button>
+
+            <Switch
+              checked={darkMode}
+              onChange={setDarkMode}
+              className={`${
+                darkMode ? "bg-blue-900" : "bg-blue-700"
+              } my-auto relative inline-flex flex-shrink-0 h-4 w-16 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+            >
+              <span className="sr-only">Use setting</span>
+              <span
+                aria-hidden="true"
+                className={`${darkMode ? "translate-x-9" : "translate-x-0"}
+                pointer-events-none inline-block w-6 rounded-full bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
+              />
+            </Switch>
           </div>
           <div className="px-4 py-2 bg-yellow-300 dark:bg-gray-300 flex space-x-4">
             <div className="tools">sort</div>
@@ -27,6 +39,7 @@ const App = () => {
       grid-flow-row-dense max-w-screen-2xl mx-auto"
           >
             <Card variant="large" />
+
             <Card variant="normal" />
             <Card variant="normal" />
             <Card variant="normal" />
