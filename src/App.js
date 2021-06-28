@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { LargeCard, Card, WideCard, TallCard } from "./components/Card";
+// import { LargeCard, Card, WideCard, TallCard } from "./components/Card";
+import Card from "./components/Card";
 const App = () => {
   const [drakMode, setDarkMode] = useState(false);
   return (
     <div className={`min-h-screen ${drakMode ? "dark" : ""}`}>
-      <div className="flex flex-col h-full justify-between bg-yellow-50 dark:bg-gray-100">
+      <div className="flex flex-col h-full justify-between bg-yellow-50 dark:bg-gray-200">
         <header>
           <div className="px-4 py-2 h-12 bg-yellow-400 dark:bg-gray-400 flex justify-between">
             <h1 className=" font-semibold">The news App</h1>
@@ -25,18 +26,18 @@ const App = () => {
         grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6
       grid-flow-row-dense max-w-screen-2xl mx-auto"
           >
+            <Card variant="large" />
+            <Card variant="normal" />
+            <Card variant="normal" />
+            <Card variant="normal" />
+            <Card variant="wide" />
+            <Card variant="normal" />
+            <Card variant="tall" />
+            <Card variant="normal" />
+            <Card variant="normal" />
             <Card />
             <Card />
-            <LargeCard />
             <Card />
-            <Card />
-            <Card />
-            <TallCard />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <WideCard />
             <Card />
             <Card />
           </div>
