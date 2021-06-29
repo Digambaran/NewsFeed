@@ -3,7 +3,7 @@ import React from "react";
 
 const Card = ({ variant, data }) => {
   let CardClasses =
-    "w-full mx-auto rounded-md shadow dark:bg-gray-600 bg-gray-300 col-span-full" +
+    "w-full mx-auto rounded-md shadow dark:bg-gray-600 bg-gray-300 col-span-full overflow-hidden" +
     " ";
   switch (variant) {
     case "large":
@@ -23,13 +23,18 @@ const Card = ({ variant, data }) => {
   }
   return data ? (
     <div className={`${CardClasses}`} data-testid="news_card">
-      <div className="flex flex-col space-y-2">
-        <div className="w-full h-24">
-          <img src={data.urlToImage} alt={data.title} />
+      <div className="flex flex-col space-y-2 relative">
+        <img
+          className="h-60 object-cover dark:filter dark:brightness-90"
+          src={data.urlToImage}
+          alt={data.title}
+        />
+        <div className="w-full absolute bottom-0 h-3/4 bg-gradient-to-b from-transparent to-white dark:to-gray-700" />
+        <div className="absolute bottom-0 px-2 dark:text-white dark:font-bold">
+          <p>{data.source.name}</p>
+          <p>{data.title}</p>
+          <p>{data.author}</p>
         </div>
-        <p>{data.source.name}</p>
-        <p>{data.title}</p>
-        <p>{data.author}</p>
       </div>
     </div>
   ) : (

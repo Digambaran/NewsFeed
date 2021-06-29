@@ -57,8 +57,8 @@ const App = () => {
         <ErrorBoundary>
           <main className="h-full">
             <div
-              className="grid gap-4 sm:gap-2 xl:gap-6 p-4 sm:p-2 xl:p-6
-        grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6
+              className="grid gap-3 sm:gap-1 xl:gap-2 p-4 sm:p-2 xl:p-6
+        grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6
       grid-flow-row-dense max-w-screen-2xl mx-auto"
             >
               {news.length === 0
