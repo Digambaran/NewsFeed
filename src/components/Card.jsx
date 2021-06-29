@@ -1,7 +1,7 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
-const Card = ({ variant }) => {
+const Card = ({ variant, data }) => {
   let CardClasses =
     "w-full mx-auto p-4 rounded-md shadow dark:bg-gray-600 bg-gray-300 col-span-full" +
     " ";
@@ -19,9 +19,18 @@ const Card = ({ variant }) => {
       CardClasses = CardClasses.concat("sm:col-span-1");
       break;
     default:
-      break;
+      throw new Error("Card variant not found");
   }
-  return (
+  return data ? (
+    <div className={`${CardClasses}`}>
+      <div className="flex flex-col space-y-2">
+        <div className="w-full h-24">
+          <img src={data.urlToImage} alt={data.title} />
+        </div>
+        <p>{data.title}</p>
+      </div>
+    </div>
+  ) : (
     <div className={`${CardClasses}`}>
       <div className="animate-pulse flex flex-col space-y-2">
         <div className=" bg-gray-400 w-full h-24" />
@@ -38,9 +47,13 @@ const Card = ({ variant }) => {
 };
 
 export default Card;
+
 Card.defaultProps = {
   variant: "normal",
+  data: null,
 };
 Card.propTypes = {
   variant: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.any,
 };
