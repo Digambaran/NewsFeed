@@ -3,7 +3,7 @@ import React from "react";
 
 const Card = ({ variant, data }) => {
   let CardClasses =
-    "w-full mx-auto p-4 rounded-md shadow dark:bg-gray-600 bg-gray-300 col-span-full" +
+    "w-full mx-auto rounded-md shadow dark:bg-gray-600 bg-gray-300 col-span-full" +
     " ";
   switch (variant) {
     case "large":
@@ -22,16 +22,18 @@ const Card = ({ variant, data }) => {
       throw new Error("Card variant not found");
   }
   return data ? (
-    <div className={`${CardClasses}`}>
+    <div className={`${CardClasses}`} data-testid="news_card">
       <div className="flex flex-col space-y-2">
         <div className="w-full h-24">
           <img src={data.urlToImage} alt={data.title} />
         </div>
+        <p>{data.source.name}</p>
         <p>{data.title}</p>
+        <p>{data.author}</p>
       </div>
     </div>
   ) : (
-    <div className={`${CardClasses}`}>
+    <div className={`${CardClasses}`} data-testid="skeleton_card">
       <div className="animate-pulse flex flex-col space-y-2">
         <div className=" bg-gray-400 w-full h-24" />
         <div className="flex-1 space-y-2 p-1">

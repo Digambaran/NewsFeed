@@ -62,8 +62,11 @@ const App = () => {
       grid-flow-row-dense max-w-screen-2xl mx-auto"
             >
               {news.length === 0
-                ? new Array(20).fill("").map(() => <Card />) // to avoid screen jumping
-                : news.articles.map((article) => <Card data={article} />)}
+                ? // eslint-disable-next-line react/no-array-index-key
+                  new Array(20).fill("").map((v, i) => <Card key={i} />) // to avoid screen jumping
+                : news.articles.map((article) => (
+                    <Card key={article.pulishedAt} data={article} />
+                  ))}
             </div>
           </main>
         </ErrorBoundary>
