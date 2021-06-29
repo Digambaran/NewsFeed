@@ -13,15 +13,14 @@ const App = () => {
             <Switch
               checked={darkMode}
               onChange={setDarkMode}
-              className={`${
-                darkMode ? "bg-blue-900" : "bg-blue-700"
-              } my-auto relative inline-flex flex-shrink-0 h-4 w-16 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+              className={`${darkMode ? "bg-blue-900" : "bg-blue-700"}
+          my-auto relative inline-flex flex-shrink-0 h-6 w-16 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
-              <span className="sr-only">Use setting</span>
+              <span className="sr-only">Dark Mode</span>
               <span
                 aria-hidden="true"
                 className={`${darkMode ? "translate-x-9" : "translate-x-0"}
-                pointer-events-none inline-block w-6 rounded-full bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
+            pointer-events-none inline-block w-6 h-full rounded-full bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
               />
             </Switch>
           </div>
