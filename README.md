@@ -2,6 +2,10 @@
 
 ## The design is Bing news feed inspired
 
+## APIs
+
+uses [newsapi.org](https://newsapi.org/) for news feed and [openweathermap](https://openweathermap.org/api) for weather.
+
 ## To Run
 
 1. Clone repo
