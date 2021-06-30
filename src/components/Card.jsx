@@ -25,7 +25,9 @@ const Card = ({ variant, data }) => {
     <div className={`${CardClasses}`} data-testid="news_card">
       <div className="flex h-full flex-col space-y-2 relative">
         <img
-          className="h-full object-cover dark:filter dark:brightness-90"
+          className={`${
+            variant === "normal" ? "h-60" : "h-full"
+          } object-cover dark:filter dark:brightness-90`}
           src={data.urlToImage}
           alt={data.title}
         />
