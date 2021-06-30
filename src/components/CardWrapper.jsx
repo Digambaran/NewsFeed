@@ -10,13 +10,13 @@ const CardWrapper = ({ children, variant, testId }) => {
       CardClasses = CardClasses.concat("sm:col-span-2 sm:row-span-2");
       break;
     case "wide":
-      CardClasses = CardClasses.concat("sm:col-span-2");
+      CardClasses = CardClasses.concat("sm:col-span-2 max-h-60");
       break;
     case "tall":
       CardClasses = CardClasses.concat("sm:col-span-1 row-span-2");
       break;
     case "normal":
-      CardClasses = CardClasses.concat("sm:col-span-1");
+      CardClasses = CardClasses.concat("sm:col-span-1 max-h-60");
       break;
     default:
       throw new Error("Card variant not found");

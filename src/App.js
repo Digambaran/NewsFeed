@@ -1,10 +1,11 @@
 /* eslint-disable no-nested-ternary */
 import { Switch } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
-import Card from "./components/Card";
+import NewsCard from "./components/NewsCard";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Search from "./components/Search";
 import TabList from "./components/TabList";
+import WeatherCard from "./components/WeatherCard";
 
 const Serialize = (Obj) => {
   const str = [];
@@ -107,10 +108,11 @@ const App = () => {
         grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6
       grid-flow-row-dense max-w-screen-2xl mx-auto"
             >
+              <WeatherCard />
               {news.length === 0
                 ? // eslint-disable-next-line react/no-array-index-key
                   new Array(20).fill("").map((v, i) => (
-                    <Card
+                    <NewsCard
                       variant={
                         i % 9 === 0 ? "large" : i % 8 === 0 ? "wide" : "normal"
                       }
@@ -119,7 +121,7 @@ const App = () => {
                     />
                   )) // to avoid screen jumping
                 : news.articles.map((article, i) => (
-                    <Card
+                    <NewsCard
                       variant={
                         i % 9 === 0 ? "large" : i % 8 === 0 ? "wide" : "normal"
                       }

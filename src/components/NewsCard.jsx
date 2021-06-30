@@ -15,7 +15,7 @@ const NewsCard = ({ variant, data }) =>
         />
         <div
           className={`${
-            variant === "normal" ? "h-3/4" : "h-1/4"
+            variant === "normal" ? "h-3/4" : "h-1/2"
           } w-full absolute bottom-0 bg-gradient-to-b from-transparent to-white dark:to-gray-700`}
         />
         <div className="absolute bottom-0 px-2 pb-2 dark:text-white dark:font-bold">
