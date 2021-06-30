@@ -7,7 +7,7 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   // const [appError, setAppError] = useState(false);
   const [news, setNews] = useState([]);
-  const url = `https://newsapi.org/v2/everything?q=Apple&from=2021-06-29&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`;
+  const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`;
   useEffect(() => {
     // const req = new Request(url);
 

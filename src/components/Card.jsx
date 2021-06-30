@@ -30,10 +30,17 @@ const Card = ({ variant, data }) => {
           alt={data.title}
         />
         <div className="w-full absolute bottom-0 h-3/4 bg-gradient-to-b from-transparent to-white dark:to-gray-700" />
-        <div className="absolute bottom-0 px-2 dark:text-white dark:font-bold">
-          <p>{data.source.name}</p>
-          <p>{data.title}</p>
-          <p>{data.author}</p>
+        <div className="absolute bottom-0 px-2 pb-2 dark:text-white dark:font-bold">
+          <span className="text-xs">{data.source.name}</span>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+            href={data.url}
+          >
+            <h2 className="leading-tight">{data.title}</h2>
+          </a>
+          <span className="text-xs capitalize">By {data.author}</span>
         </div>
       </div>
     </div>
@@ -61,6 +68,17 @@ Card.defaultProps = {
 };
 Card.propTypes = {
   variant: PropTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
-  data: PropTypes.any,
+  data: PropTypes.exact({
+    title: PropTypes.string,
+    author: PropTypes.string,
+    url: PropTypes.string,
+    description: PropTypes.string,
+    content: PropTypes.string,
+    source: PropTypes.exact({
+      id: PropTypes.any,
+      name: PropTypes.string,
+    }),
+    urlToImage: PropTypes.string,
+    publishedAt: PropTypes.string,
+  }),
 };

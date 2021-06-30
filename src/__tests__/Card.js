@@ -28,6 +28,13 @@ describe("Card called with data renders news card", () => {
     const { getByText } = render(<Card data={data} />);
     expect(getByText(/a news title/i)).toBeInTheDocument();
   });
+  test("Shows title as a link to article", () => {
+    const { getByText } = render(<Card data={data} />);
+    expect(getByText(/a news title/i).parentElement).toHaveAttribute(
+      "href",
+      data.url
+    );
+  });
   test("Shows source", () => {
     const { getByText } = render(<Card data={data} />);
     expect(getByText(/source name/i)).toBeInTheDocument();
