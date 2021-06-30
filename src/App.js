@@ -1,16 +1,60 @@
+/* eslint-disable no-nested-ternary */
 import { Switch } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
 import Card from "./components/Card";
 import ErrorBoundary from "./components/ErrorBoundary";
+import Search from "./components/Search";
+import TabList from "./components/TabList";
 
+const Serialize = (Obj) => {
+  const str = [];
+  Object.keys(Obj).forEach((v) => {
+    if (Obj[v] !== "" && v !== "group")
+      str.push(`${encodeURIComponent(v)}=${encodeURIComponent(Obj[v])}`);
+  });
+  return `https://newsapi.org/v2/${Obj.group}?${str.join("&")}`;
+};
+const initState = {
+  group: "top-headlines",
+  query: "",
+  qInTitle: "",
+  category: "",
+  country: "in",
+  apiKey: process.env.REACT_APP_NEWS_API_KEY,
+};
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
-  // const [appError, setAppError] = useState(false);
+  const [URLObj, setURLObj] = useState({ ...initState });
   const [news, setNews] = useState([]);
-  const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`;
-  useEffect(() => {
-    // const req = new Request(url);
 
+  const handleTabClick = ({ target: { value } }) => {
+    if (value === "headlines") {
+      return setURLObj((prevState) => ({
+        ...prevState,
+        ...initState,
+      }));
+    }
+
+    return setURLObj((prevState) => ({
+      ...prevState,
+      group: "top-headlines",
+      category: value,
+    }));
+  };
+  const handleSearch = (value) => {
+    setNews([]);
+    setURLObj((prevState) => ({
+      ...prevState,
+      group: "everything",
+      qInTitle: value,
+      // api doesn't support country in everything group
+      country: "",
+    }));
+  };
+
+  useEffect(() => {
+    const url = Serialize(URLObj);
+    console.log(url);
     fetch(url)
       .then((response) => {
         if (response.status === 200) {
@@ -23,9 +67,9 @@ const App = () => {
       })
       .catch((error) => {
         console.log(error, "error");
-        // setAppError(true);
       });
-  }, []);
+  }, [URLObj]);
+
   return (
     <div className={`min-h-screen ${darkMode ? "dark" : ""}`}>
       <div className="flex flex-col h-full justify-between bg-yellow-50 dark:bg-gray-200">
@@ -47,11 +91,13 @@ const App = () => {
               />
             </Switch>
           </div>
-          <div className="px-4 py-2 bg-yellow-300 dark:bg-gray-300 flex space-x-4">
-            <div className="tools">sort</div>
-            <div className="tools">latest</div>
-            <div className="tools">somethin</div>
-            <div className="tools">sss</div>
+          <div className="px-4 py-2 bg-yellow-300 dark:bg-gray-300 flex justify-between flex-wrap-reverse">
+            <TabList
+              handleTabClick={handleTabClick}
+              items={["Headlines", "Entertainment", "Technology"]}
+              listName="news category"
+            />
+            <Search handler={handleSearch} />
           </div>
         </header>
         <ErrorBoundary>
@@ -63,9 +109,23 @@ const App = () => {
             >
               {news.length === 0
                 ? // eslint-disable-next-line react/no-array-index-key
-                  new Array(20).fill("").map((v, i) => <Card key={i} />) // to avoid screen jumping
-                : news.articles.map((article) => (
-                    <Card key={article.pulishedAt} data={article} />
+                  new Array(20).fill("").map((v, i) => (
+                    <Card
+                      variant={
+                        i % 9 === 0 ? "large" : i % 8 === 0 ? "wide" : "normal"
+                      }
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={i}
+                    />
+                  )) // to avoid screen jumping
+                : news.articles.map((article, i) => (
+                    <Card
+                      variant={
+                        i % 9 === 0 ? "large" : i % 8 === 0 ? "wide" : "normal"
+                      }
+                      key={article.pulishedAt}
+                      data={article}
+                    />
                   ))}
             </div>
           </main>

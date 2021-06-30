@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       brightness: ["dark"],
       fontWeight: ["dark"],
+      borderWidth: ["checked"],
+      borderColor: ["checked"],
     },
   },
   plugins: [],
