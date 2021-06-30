@@ -1,28 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
+import CardWrapper from "./CardWrapper";
 
-const Card = ({ variant, data }) => {
-  let CardClasses =
-    "w-full mx-auto rounded-md shadow dark:bg-gray-600 bg-gray-300 col-span-full overflow-hidden" +
-    " ";
-  switch (variant) {
-    case "large":
-      CardClasses = CardClasses.concat("sm:col-span-2 sm:row-span-2");
-      break;
-    case "wide":
-      CardClasses = CardClasses.concat("sm:col-span-2");
-      break;
-    case "tall":
-      CardClasses = CardClasses.concat("sm:col-span-1 row-span-2");
-      break;
-    case "normal":
-      CardClasses = CardClasses.concat("sm:col-span-1");
-      break;
-    default:
-      throw new Error("Card variant not found");
-  }
-  return data ? (
-    <div className={`${CardClasses}`} data-testid="news_card">
+const NewsCard = ({ variant, data }) =>
+  data ? (
+    <CardWrapper variant={variant} testId="news_card">
       <div className="flex h-full flex-col space-y-2 relative">
         <img
           className={`${
@@ -49,9 +31,9 @@ const Card = ({ variant, data }) => {
           <span className="text-xs capitalize">By {data.author}</span>
         </div>
       </div>
-    </div>
+    </CardWrapper>
   ) : (
-    <div className={`${CardClasses}`} data-testid="skeleton_card">
+    <CardWrapper variant={variant} testId="skeleton_card">
       <div className="animate-pulse flex flex-col space-y-2">
         <div className=" bg-gray-300 w-full h-48" />
         <div className="flex-1 space-y-2 p-1">
@@ -62,17 +44,16 @@ const Card = ({ variant, data }) => {
           </div>
         </div>
       </div>
-    </div>
+    </CardWrapper>
   );
-};
 
-export default Card;
+export default NewsCard;
 
-Card.defaultProps = {
+NewsCard.defaultProps = {
   variant: "normal",
   data: null,
 };
-Card.propTypes = {
+NewsCard.propTypes = {
   variant: PropTypes.string,
   data: PropTypes.exact({
     title: PropTypes.string,

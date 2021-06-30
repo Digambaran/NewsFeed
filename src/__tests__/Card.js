@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Card from "../components/Card";
+import NewsCard from "../components/NewsCard";
 
-test("Card called with no or null prop renders skeleton with animation", () => {
-  render(<Card />);
+test("NewsCard called with no or null prop renders skeleton with animation", () => {
+  render(<NewsCard />);
   const SkeletonCard = screen.getByTestId("skeleton_card");
   expect(SkeletonCard).toBeInTheDocument();
   expect(SkeletonCard.children[0].classList.contains("animate-pulse")).toBe(
@@ -11,7 +11,7 @@ test("Card called with no or null prop renders skeleton with animation", () => {
   );
 });
 
-describe("Card called with data renders news card", () => {
+describe("NewsCard called with data renders news card", () => {
   const data = {
     title: "A news title",
     author: "Arjun",
@@ -20,27 +20,27 @@ describe("Card called with data renders news card", () => {
     source: { id: "source id", name: "source name" },
   };
   test("Shows news card", () => {
-    const { getByTestId } = render(<Card data={data} />);
-    const NewsCard = getByTestId("news_card");
-    expect(NewsCard).toBeInTheDocument();
+    const { getByTestId } = render(<NewsCard data={data} />);
+    const newsCard = getByTestId("news_card");
+    expect(newsCard).toBeInTheDocument();
   });
   test("Shows title", () => {
-    const { getByText } = render(<Card data={data} />);
+    const { getByText } = render(<NewsCard data={data} />);
     expect(getByText(/a news title/i)).toBeInTheDocument();
   });
   test("Shows title as a link to article", () => {
-    const { getByText } = render(<Card data={data} />);
+    const { getByText } = render(<NewsCard data={data} />);
     expect(getByText(/a news title/i).parentElement).toHaveAttribute(
       "href",
       data.url
     );
   });
   test("Shows source", () => {
-    const { getByText } = render(<Card data={data} />);
+    const { getByText } = render(<NewsCard data={data} />);
     expect(getByText(/source name/i)).toBeInTheDocument();
   });
   test("Shows author", () => {
-    const { getByText } = render(<Card data={data} />);
+    const { getByText } = render(<NewsCard data={data} />);
     expect(getByText(/arjun/i)).toBeInTheDocument();
   });
   //   test("Shows image", () => {
