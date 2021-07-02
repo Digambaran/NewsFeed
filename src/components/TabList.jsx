@@ -5,6 +5,7 @@ const TabList = ({ handleTabClick, items, listName }) => (
   <div className="flex space-x-2">
     {items.map((value) => (
       <label
+        key={value}
         className="relative leading-loose hover:bg-white cursor-pointer px-2"
         htmlFor={value}
       >

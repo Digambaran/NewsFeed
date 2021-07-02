@@ -22,3 +22,4 @@ uses [newsapi.org](https://newsapi.org/) for news feed and [openweathermap](http
 4. Search is done only in title now, provide option for user to do search in title or content or both.
 5. redesign the toolbar/menubar.
 6. Add darkmode toggle button icons for dark and light.
+7. Handle broken images.

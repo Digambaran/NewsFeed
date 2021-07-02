@@ -23,10 +23,38 @@ const initState = {
   country: "in",
   apiKey: process.env.REACT_APP_NEWS_API_KEY,
 };
+const cochinCoordinates = { lat: 9.9312, lon: 76.2673 };
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [URLObj, setURLObj] = useState({ ...initState });
   const [news, setNews] = useState([]);
+  const [weather, setWeather] = useState({});
+  // include country and lat/lon in one state and provide as a context.Openweather returns country code,use it on news api
+  const [coordinates, setCoordinates] = useState({ lat: 9, lon: 76 });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCoordinates({
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        });
+      },
+      (error) => {
+        if (error.code === 1)
+          console.warn("Location not enabled, using cochin as default");
+        return setCoordinates(cochinCoordinates);
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => setWeather(data));
+  }, [coordinates]);
 
   const handleTabClick = ({ target: { value } }) => {
     if (value === "headlines") {
@@ -35,13 +63,13 @@ const App = () => {
         ...initState,
       }));
     }
-
     return setURLObj((prevState) => ({
       ...prevState,
       group: "top-headlines",
       category: value,
     }));
   };
+
   const handleSearch = (value) => {
     setNews([]);
     setURLObj((prevState) => ({
@@ -108,10 +136,9 @@ const App = () => {
         grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6
       grid-flow-row-dense max-w-screen-2xl mx-auto"
             >
-              <WeatherCard />
+              <WeatherCard data={weather} />
               {news.length === 0
-                ? // eslint-disable-next-line react/no-array-index-key
-                  new Array(20).fill("").map((v, i) => (
+                ? new Array(20).fill("").map((v, i) => (
                     <NewsCard
                       variant={
                         i % 9 === 0 ? "large" : i % 8 === 0 ? "wide" : "normal"
